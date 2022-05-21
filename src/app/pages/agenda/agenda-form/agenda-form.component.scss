@@ -1,0 +1,20 @@
+mat-form-field {
+    width: 100%;
+}
+
+mat-card-header {
+    align-items: base;
+    justify-content: space-between;
+}
+
+form div.actions {
+    margin-top: 40px;
+    display: flex;
+    gap: 10px;
+    float: right;
+}
+
+form button.mat-mini-fab {
+    margin-top: 20px;
+    float: right;
+}

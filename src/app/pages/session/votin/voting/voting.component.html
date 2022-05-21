@@ -1,0 +1,69 @@
+<header>
+    <h3>Pauta: <b>Teste</b></h3>
+    <div class="score">
+        <h3>Placar</h3>
+        <div class="score-result">
+            <span>Sim</span>
+            <span class="score-value">{{ countVoting('y') }}</span>
+        </div>
+        <div class="score-result">
+            <span>Não</span>
+            <span class="score-value">{{ countVoting('n') }}</span>
+        </div>
+        <div class="score-result">
+            <span>Abstenção</span>
+            <span class="score-value">{{ countVoting(undefined) }}</span>
+        </div>
+    </div>
+    <div class="timer">
+        <span>Tempo restante:</span>
+        <countdown id="time"
+          (event)="setTimeOver($event)"
+          [config]="countdown"></countdown>
+    </div>
+</header>
+
+<mat-divider></mat-divider>
+
+
+                    
+<table mat-table [dataSource]="dataSourceUsers" width="100%">
+        
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> Id </th>
+      <td mat-cell *matCellDef="let user"> {{user.id}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Nome </th>
+      <td mat-cell *matCellDef="let user"> {{user.name}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="cpf">
+      <th mat-header-cell *matHeaderCellDef> CPF </th>
+      <td mat-cell *matCellDef="let user"> {{user.cpf | mask: '000.000.000-00'}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="options">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let user">
+
+        <mat-button-toggle-group [disabled]="disableVoting(user)"
+          [value]="user.vote"
+          #select="matButtonToggleGroup"
+          (change)="registerVote(user, select.value)">
+            <mat-button-toggle class="button-yes" value="y">Sim</mat-button-toggle>
+            <mat-button-toggle class="button-no" value="n">Não</mat-button-toggle>
+        </mat-button-toggle-group>
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsUsers"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumnsUsers;"></tr>
+</table>
+
+<div class="footer">
+    <div class="actions">
+        <a mat-raised-button routerLink="/home">Página Inicial</a>
+    </div>
+</div>

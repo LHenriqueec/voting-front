@@ -1,0 +1,45 @@
+header {
+    display: flex;
+    justify-content: space-between;
+
+    .timer {
+        display: flex;
+        flex-direction: column;
+
+        #time {
+            text-align: right;
+            margin: 10px 0;
+            font-weight: bold;
+            font-size: 40px;
+        }
+    }
+
+    .score {
+        .score-result {
+            display: flex;
+            justify-content: space-between;
+            min-width: 100px;
+
+            .score-value { font-weight: bold; }
+        }
+    }
+}
+
+.button-yes {
+    &:hover,
+    &.mat-button-toggle-checked {
+        background-color: #38bd67;
+    }
+}
+
+.button-no {
+    &:hover,
+    &.mat-button-toggle-checked {
+        background-color: #bd4738;
+    }
+}
+
+.footer {
+    margin-top: 20px;
+    text-align: center;
+}

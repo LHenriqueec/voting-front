@@ -1,0 +1,82 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Nova Pauta</mat-card-title>
+        <div class="actions">
+            <a mat-icon-button routerLink="/home" color="warn">
+                <mat-icon>close</mat-icon>
+            </a>
+        </div>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-stepper linear="true" #stepper>
+            <mat-step [stepControl]="formAgenda">
+                <form [formGroup]="formAgenda">
+                    <ng-template matStepLabel>Informações da Pauta</ng-template>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nome</mat-label>
+                        <input matInput placeholder="Nome do usuário" formControlName="subject">
+                    </mat-form-field>
+                    <div class="actions">
+                        <button mat-raised-button color="primary" matStepperNext>Próximo</button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step [stepControl]="formSession" label="Informações da Sessão">
+                <form [formGroup]="formSession">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Duração</mat-label>
+                        <mat-select formControlName="duration">
+                            <mat-option *ngFor="let duration of durations" [value]="duration">{{ duration }} min</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-divider></mat-divider>
+                    <button mat-mini-fab color="accent" (click)="openDialogUser()" title="Adicionar Usuários">
+                        <mat-icon>person_add</mat-icon>
+                    </button>
+                    
+                    <table mat-table [dataSource]="dataSourceUsers" width="100%">
+        
+                        <ng-container matColumnDef="id">
+                          <th mat-header-cell *matHeaderCellDef> Id </th>
+                          <td mat-cell *matCellDef="let user"> {{user.id}} </td>
+                        </ng-container>
+                      
+                        <ng-container matColumnDef="name">
+                          <th mat-header-cell *matHeaderCellDef> Nome </th>
+                          <td mat-cell *matCellDef="let user"> {{user.name}} </td>
+                        </ng-container>
+                      
+                        <ng-container matColumnDef="cpf">
+                          <th mat-header-cell *matHeaderCellDef> CPF </th>
+                          <td mat-cell *matCellDef="let user"> {{user.cpf | mask: '000.000.000-00'}} </td>
+                        </ng-container>
+                      
+                        <ng-container matColumnDef="options">
+                          <th mat-header-cell *matHeaderCellDef></th>
+                          <td mat-cell *matCellDef="let agenda">
+            
+                            <button type="button" mat-icon-button title="Detalhar">
+                              <mat-icon>trash</mat-icon>
+                            </button>
+                          </td>
+                        </ng-container>
+                      
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsUsers"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsUsers;"></tr>
+                    </table>
+                    
+                    <div class="actions">
+                        <button mat-raised-button matStepperPrevious>Voltar</button>
+                        <button mat-raised-button
+                            color="primary"
+                            (click)="registerAgenda()"
+                            [disabled]="validateForms()">Salvar</button>
+                    </div>
+                </form>
+            </mat-step>
+        </mat-stepper>
+    </mat-card-content>
+</mat-card>
+  
